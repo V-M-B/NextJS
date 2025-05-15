@@ -21,7 +21,7 @@ const VideoCard = ({
             <div className="">
                 <figure>
                     <Image
-                        src={userImg}
+                        src={userImg || "/assets/images/dummy.jpg"}
                         alt="User"
                         width={34}
                         height={34}
@@ -62,6 +62,10 @@ const VideoCard = ({
             />
             <span>Copy</span>
         </button>
+        {duration && (
+            <div className="duration">
+                {Math.ceil(duration / 60)}min:
+                </div>)}
      </Link>   
   )
 }

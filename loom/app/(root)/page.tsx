@@ -1,16 +1,24 @@
 import Header from '@/components/Header'
 import VideoCard from '@/components/VideoCard'
 import React from 'react'
+import { dummyCards } from '@/constants'
 
 function page() {
   return (
     <main className=' wrapper page'>
       <Header subHeader='Public Library' title='All Videos' />
-      <h1 className='text-2xl font-karla '>
+      {/* <h1 className='text-2xl font-karla '>
         Welcome to SnapCast
-      </h1>
+      </h1> */}
 
-      <VideoCard
+              <section className='video-grid'>
+
+      {dummyCards.map((card) => (
+        <VideoCard  {...card} id={card.id.toString()} key={card.id} />
+      ))}
+      </section>
+        
+      {/* <VideoCard
       id="1"
       title="SnapCast Message "
       thumbnail="/assets/samples/thumbnail (1).png"
@@ -20,7 +28,7 @@ function page() {
       visibility="public"
       duration={149}
       userImg="/assets/images/jason.png"
-      />
+      /> */}
 
     </main>
   )
