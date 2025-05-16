@@ -1,0 +1,6 @@
+{
+  "databaseURL": "https://Varun-M-Bharadwaj-s-workspace-0lsmru.ap-southeast-2.xata.sh/db/jsm_snapcast",
+  "codegen": {
+    "output": "src/xata.ts"
+  }
+}
