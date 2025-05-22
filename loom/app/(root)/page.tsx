@@ -1,37 +1,54 @@
-import Header from '@/components/Header'
-import VideoCard from '@/components/VideoCard'
-import React from 'react'
-import { dummyCards } from '@/constants'
+import { EmptyState, Pagination, SharedHeader, VideoCard } from "@/components";
+import { getAllVideos } from "@/lib/actions/video";
 
-function page() {
+const page = async ({ searchParams }: SearchParams) => {
+  const { query, filter, page } = await searchParams;
+
+  const { videos, pagination } = await getAllVideos(
+    query,
+    filter,
+    Number(page) || 1
+  );
+
   return (
-    <main className=' wrapper page'>
-      <Header subHeader='Public Library' title='All Videos' />
-      {/* <h1 className='text-2xl font-karla '>
-        Welcome to SnapCast
-      </h1> */}
+    <main className="wrapper page">
+      <SharedHeader subHeader="Public Library" title="All Videos" />
 
-              <section className='video-grid'>
+      {videos?.length > 0 ? (
+        <section className="video-grid">
+          {videos.map(({ video, user }) => (
+            <VideoCard
+              key={video.id}
+              id={video.videoId}
+              title={video.title}
+              thumbnail={video.thumbnailUrl}
+              createdAt={video.createdAt}
+              userImg={user?.image ?? ""}
+              username={user?.name ?? "Guest"}
+              views={video.views}
+              visibility={video.visibility}
+              duration={video.duration}
+            />
+          ))}
+        </section>
+      ) : (
+        <EmptyState
+          icon="/assets/icons/video.svg"
+          title="No Videos Found"
+          description="Try adjusting your search."
+        />
+      )}
 
-      {dummyCards.map((card) => (
-        <VideoCard  {...card} id={card.id.toString()} key={card.id} />
-      ))}
-      </section>
-        
-      {/* <VideoCard
-      id="1"
-      title="SnapCast Message "
-      thumbnail="/assets/samples/thumbnail (1).png"
-      createdAt={new Date("2023-06-30:00:00")}
-      username="Alice"
-      views={10}
-      visibility="public"
-      duration={149}
-      userImg="/assets/images/jason.png"
-      /> */}
-
+      {pagination?.totalPages > 1 && (
+        <Pagination
+          currentPage={pagination.currentPage}
+          totalPages={pagination.totalPages}
+          queryString={query}
+          filterString={filter}
+        />
+      )}
     </main>
-  )
-}
+  );
+};
 
-export default page
+export default page;
