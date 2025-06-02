@@ -25,9 +25,9 @@ const CompanionCard = ({
         <div className="subject-badge">
           {subject}
         </div>
-        <button className="companion-bookmark">
+        {/* <button className="companion-bookmark">
           <Image src="/icons/bookmark.svg" alt="Bookmark"  width={12.5} height={15}/>
-        </button>
+        </button> */}
           
       </div>
       <h2 className='text-2xl font-bold mb-2'>
